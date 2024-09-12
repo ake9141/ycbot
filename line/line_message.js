@@ -69,6 +69,8 @@ async function lineMessage(userId,event,client) {
                 "type": "text",
                 "text": `บันทึกเรียบร้อย`,
             }]);
+    
+
 
     }
       

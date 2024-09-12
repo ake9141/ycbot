@@ -21,21 +21,46 @@ async function lineHandleEvents(event) {
     const lineId = event.source.userId;
     const uret = await UserRep.findByLineId(lineId);
 
-    if (!uret.success) {
-
-        return client.replyMessage(event.replyToken, [
-            {
-                "type": "text",
-                "text": `กรุณาลงทะเบียนก่อน`,
-            }]);
-
-    } 
+   
 
     const userId = uret.data;
 
     if (event.type == 'message') {
-        console.log('pass')
-        lineMessage(userId,event,client)
+       
+        const text = event.message.text;
+        const twoChar = text.trimEnd().slice(-2);
+
+        if (twoChar == 'ทบ') {
+
+            const utexts = text.split(' ');
+
+            const uname  = utexts[0];
+
+            const  ret = await   UserRep.insert({lineId:lineId,name:uname})
+
+            return client.replyMessage(event.replyToken, [
+                    {
+                        "type": "text",
+                        "text": `ลงทะเบียนเรียบร้อย`,
+            }]);
+
+        } else {
+          
+
+            if (!uret.success) {
+
+                return client.replyMessage(event.replyToken, [
+                    {
+                        "type": "text",
+                        "text": `กรุณาลงทะเบียนก่อน`,
+                    }]);
+        
+            }  else {
+                
+                console.log('pass')
+                lineMessage(userId,event,client)
+            }
+        }
     }
 
     
