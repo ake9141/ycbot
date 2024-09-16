@@ -12,10 +12,12 @@ const userRepository = {
     async findByLineId(lineId) {
       try {
         console.log(lineId)
-        const result = await User.findOne({ lineId: lineId });
-        
-        
-        return {success:true,data:result._id};
+        const user = await User.findOne({ lineId: lineId });
+        if (!user) {
+          return {success:false,data:user};
+        } else {
+             return {success:true,data:user};
+          }
       } catch (err){
             
         return {success:false,data:err.code};
@@ -37,13 +39,22 @@ const userRepository = {
     },
   
     // Update a user
-    async update(userId, updateFields) {
-      const collection = await getUserCollection();
-      const result = await User.updateOne(
-        { _id: userId },
-        { $set: updateFields }
-      );
-      return result.modifiedCount > 0;
+    async update(id, updatedData) {
+      try{
+       
+        console.log(updatedData);
+        const options = { new: true };
+
+        const user = await User.findByIdAndUpdate(
+            id, updatedData, options
+        )
+     
+        return {success:true,data:user}
+
+      } catch (err){
+        
+        return {success:false,data:err}
+      }
     },
   
     // Delete a user

@@ -32,18 +32,24 @@ const orderRepository = {
     // Update a user
     async update(id, parm) {
       try{
-        const result = await Order.findByIdAndUpdate(id,parm,{ new: true });
-        return {success:true,data:result}
+       
+        
+        const options = { new: true };
+
+        const order = await Order.findByIdAndUpdate(
+            id, updatedData, options
+        )
+     
+        console.log(order)
+        return {success:true,data:order}
+
       } catch (err){
-        return {success:false,data:err.code}
+        
+        return {success:false,data:err}
       }
     },
   
-    // Delete a user
-    async delete(id) {
-      const result = await User.deleteOne({ _id: id});
-      return result.deletedCount > 0;
-    }
+   
   };
   
   module.exports = orderRepository;

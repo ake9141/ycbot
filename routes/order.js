@@ -1,21 +1,21 @@
 const express = require("express")
 const router= express.Router();
-const userRepository  = require("../repository/user_repository")
+const orderRepository  = require("../repository/order_repository")
 
 
 
-router.get("/user",async (req,res)=>{
+router.get("/order",async (req,res)=>{
     let data = await userRepository.findAll()
     
     console.log(data);
     res.status(200).json(data);
 })
 
-router.patch('/user/:id', async (req, res) => {
+router.patch('/order/:id', async (req, res) => {
         const id = req.params.id;
         console.log(req.body);
         const updatedData = req.body;
-        let data =  await userRepository.update(id,updatedData)
+        let data =  await orderRepository.update(id,updatedData)
        
         res.status(200).json(data);
 });

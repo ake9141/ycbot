@@ -12,6 +12,8 @@ const schema = new Schema({
     isConfirm:{type:Boolean},
     isPrint:{type:Boolean},
     isSend:{type:Boolean},
+    isCancel:{type:Boolean},
+    refDoc: {type: [Number]},
     user:{type: Schema.Types.ObjectId,ref: 'users'},
     
 },{

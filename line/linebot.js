@@ -6,6 +6,7 @@ const UserRep  = require("../repository/user_repository");
 
 
 
+
 const config = {
     channelAccessToken: process.env.token,
     channelSecret: process.env.secretcode
@@ -23,28 +24,14 @@ async function lineHandleEvents(event) {
 
    
 
-    const userId = uret.data;
+
 
     if (event.type == 'message') {
        
         const text = event.message.text;
         const twoChar = text.trimEnd().slice(-2);
 
-        if (twoChar == 'ทบ') {
-
-            const utexts = text.split(' ');
-
-            const uname  = utexts[0];
-
-            const  ret = await   UserRep.insert({lineId:lineId,name:uname})
-
-            return client.replyMessage(event.replyToken, [
-                    {
-                        "type": "text",
-                        "text": `ลงทะเบียนเรียบร้อย`,
-            }]);
-
-        } else {
+        
           
 
             if (!uret.success) {
@@ -57,10 +44,23 @@ async function lineHandleEvents(event) {
         
             }  else {
                 
-                console.log('pass')
-                lineMessage(userId,event,client)
+
+                const user = uret.data;
+               
+                if (!user.isConfirm){
+
+                    return client.replyMessage(event.replyToken, [
+                        {
+                            "type": "text",
+                            "text": `คุณ ${user.name} รอการยืนยันจาก admin`,
+                        }]);
+
+                } else {
+                    console.log('pass')
+                    lineMessage(user._id,event,client)
+                }
             }
-        }
+        
     }
 
     
