@@ -5,7 +5,7 @@ const orderRepository  = require("../repository/order_repository")
 
 
 router.get("/order",async (req,res)=>{
-    let data = await userRepository.findAll()
+    let data = await orderRepository.findAll();
     
     console.log(data);
     res.status(200).json(data);
