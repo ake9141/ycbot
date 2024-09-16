@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
@@ -22,7 +23,7 @@ connectDB().catch((err)=>{
 
 
 
-
+app.use(cors());
 
 app.use("/webhook",lineRoutes)
 app.use(bodyParser.json());
