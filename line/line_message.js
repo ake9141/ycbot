@@ -45,6 +45,10 @@ async function lineMessage(userId,event,client) {
         }
     
 
+  
+    }   else if (twoChar == 'ดู'){
+        
+          return reply(client,event,'https://liff.line.me/2006371674-yzKrPkEV')
 
     }
       
