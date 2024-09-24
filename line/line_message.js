@@ -1,6 +1,6 @@
 const OrderRep  = require("../repository/order_repository");
 const UserRep  = require("../repository/user_repository");
-const {reply,getName} = require("../custom");
+const {reply,getName,replyflex} = require("../custom");
 
 
 
@@ -48,8 +48,8 @@ async function lineMessage(userId,event,client) {
   
     }   else if (twoChar == 'ดู'){
         
-          return reply(client,event,'https://liff.line.me/2006371674-yzKrPkEV')
-
+          return replyflex(client,event,'ดูรายการorder','https://liff.line.me/2006371674-yzKrPkEV');
+         
     }
       
     

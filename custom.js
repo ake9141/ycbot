@@ -24,6 +24,52 @@ module.exports = {
             }]);
 
     },
+
+
+    replyflex:function(client,event,title,url)
+    { 
+        return client.replyMessage(event.replyToken, [
+            {
+                "type": "flex",
+                "altText": "This is a Flex message",
+                "contents": {
+                  "type": "bubble",
+                  "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": title,
+                        "weight": "bold",
+                        "size": "xl"
+                      },
+                      {
+                        "type": "text",
+                        "text": "กดปุ่มเพื่อเปิดโปรแกรม"
+                      }
+                    ]
+                  },
+                  "footer": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "button",
+                        "style": "primary",
+                        "action": {
+                          "type": "uri",
+                          "label": "เปิดโปรแกรม",
+                          "uri": url
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+    ]);
+
+    },
 }
 
 

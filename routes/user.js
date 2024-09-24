@@ -11,6 +11,15 @@ router.get("/user",async (req,res)=>{
     res.status(200).json(data);
 })
 
+
+router.get("/user/:id",async (req,res)=>{
+    const id = req.params.id;
+    let data = await userRepository.findByLineId(id)
+    
+    console.log(data);
+    res.status(200).json(data);
+})
+
 router.patch('/user/:id', async (req, res) => {
         const id = req.params.id;
         console.log(req.body);
