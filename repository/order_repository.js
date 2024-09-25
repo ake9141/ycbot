@@ -17,7 +17,7 @@ const orderRepository = {
 
             const count = await Order.countDocuments(query);
 
-            const items = await Order.find(query).populate("user")
+            const values = await Order.find(query).populate("user")
             .skip((npage-1) * lpage) // Skip the items of previous pages
             .limit(lpage)
             .sort({
@@ -29,7 +29,7 @@ const orderRepository = {
           
           } catch (err){
             
-            return {success:false,data:err.code};
+            return {success:false,data:err};
           }
     },
 

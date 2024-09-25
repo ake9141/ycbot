@@ -9,6 +9,7 @@ const {setRes} = require("../custom");
 router.get("/order/:npage",async (req,res)=>{
     const npage = req.params.npage;
     const filter = req.query; 
+    
     let data = await orderRepository.findAll(npage,filter);
     setRes(res,data);
 })
