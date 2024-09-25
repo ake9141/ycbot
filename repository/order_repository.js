@@ -29,7 +29,7 @@ const orderRepository = {
           
           } catch (err){
             
-            return {success:false,data:err};
+            return {success:false,error:err};
           }
     },
 
@@ -67,7 +67,7 @@ const orderRepository = {
 
         } catch (err){
             
-          return {success:false,data:err.code};
+          return {success:false,error:err.code};
         }
 
     },
@@ -89,7 +89,7 @@ const orderRepository = {
 
         } catch (err){
           
-          return {success:false,data:err.code}
+          return {success:false,error:err.code}
         }
         
     },
@@ -110,7 +110,7 @@ const orderRepository = {
 
       } catch (err){
         
-        return {success:false,data:err}
+        return {success:false,error:err}
       }
     },
   
