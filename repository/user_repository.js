@@ -1,20 +1,36 @@
 const User  = require("../model/user")
-
+const lpage = process.env.page;
 
 
 const userRepository = {
     // Find all users
-    async findAll() {
-      return await User.find();
+    async findAll(npage,filter) {
+      try { 
+        const query = {};
+        if (filter.name) { // Example field for "like" search
+          query.name = { $regex: new RegExp(filter.name, 'i') }; // 'i' for case-insensitive
+         }
+        const count = await User.countDocuments(query);
+
+        const items =  await User.find(query)  
+        .skip((npage-1) * lpage) // Skip the items of previous pages
+        .limit(lpage)
+      
+       
+        return {success:true,data:{count,items}};
+      } catch (err){
+              
+        return {success:false,data:err};
+      }
     },
   
     // Find user by ID
     async findByLineId(lineId) {
       try {
-        console.log(lineId)
-        const user = await User.findOne({ lineId: lineId });
-        if (!user) {
-          return {success:false,data:user};
+       
+        const item = await User.findOne({ lineId: lineId });
+        if (!item) {
+          return {success:true,data:null};
         } else {
              return {success:true,data:user};
           }

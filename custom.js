@@ -70,6 +70,15 @@ module.exports = {
     ]);
 
     },
+
+
+    setRes:function(res,data){
+        if (data.success){
+            return  res.status(200).json(data);
+        } else {
+            res.status(500).json(data);
+        }
+    }
 }
 
 

@@ -7,19 +7,69 @@ const lpage = process.env.page;
 const orderRepository = {
     // Find all users\
    
-    async findAll(npage) {
-      console.log(npage);
-      return await Order.find().populate("user")
-      .skip((npage) * lpage) // Skip the items of previous pages
-      .limit(lpage);
+    async findAll(npage,filter) {
+
+      try {
+            const query = {};
+            if (filter.text) { // Example field for "like" search
+              query.text = { $regex: new RegExp(filter.name, 'i') }; // 'i' for case-insensitive
+            }
+
+            const count = await Order.countDocuments(query);
+
+            const items = await Order.find(query).populate("user")
+            .skip((npage-1) * lpage) // Skip the items of previous pages
+            .limit(lpage)
+            .sort({
+              orderId: 'desc'})
+
+           return {success:true,data:{count,values}}
+
+            
+          
+          } catch (err){
+            
+            return {success:false,data:err.code};
+          }
     },
 
-    async findByUser(npage,lineId) {
-      const user = await User.findOne({ lineId: lineId });
-      console.log(user)
-      return await Order.find({ user: user._id}).populate("user")
-      .skip((npage - 1) * lpage) // Skip the items of previous pages
-      .limit(lpage);
+    async findByUser(npage,lineId,filter) {
+
+
+
+    
+      try{
+          const user = await User.findOne({ lineId: lineId });
+          let count = 0;
+          let values = [];
+          if (user){
+          
+           
+            if (filter.text) { // Example field for "like" search
+              filter.text = { $regex: new RegExp(filter.text, 'i') }; // 'i' for case-insensitive
+            }
+
+            query = {
+              ...filter, // Spread existing filter parameters
+              ...(user ? { user: user._id } : {}) // Conditionally add user filter
+             };
+      
+
+            count = await Order.countDocuments(query);
+            values =  await Order.find(query).populate("user")
+            .skip((npage - 1) * lpage) // Skip the items of previous pages
+            .limit(lpage)
+            .sort({
+              orderId: 'desc'})
+          } 
+
+          return {success:true,data:{count,values}}
+
+        } catch (err){
+            
+          return {success:false,data:err.code};
+        }
+
     },
   
   
