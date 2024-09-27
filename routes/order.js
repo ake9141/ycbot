@@ -6,19 +6,18 @@ const {setRes} = require("../custom");
 
 
 
-router.get("/order/:npage",async (req,res)=>{
-    const npage = req.params.npage;
+router.get("/order",async (req,res)=>{
+   
     const filter = req.query; 
     
-    let data = await orderRepository.findAll(npage,filter);
+    let data = await orderRepository.findAll(filter);
     setRes(res,data);
 })
 
 
-router.get("/order/:npage/:id",async (req,res)=>{
+router.get("/order/:id",async (req,res)=>{
     const id = req.params.id;
-    const npage = req.params.npage;
-    let data = await orderRepository.findByUser(npage,id);
+    let data = await orderRepository.findByUser(id);
     setRes(res,data);
 })
 

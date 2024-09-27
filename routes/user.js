@@ -4,10 +4,10 @@ const userRepository  = require("../repository/user_repository")
 const {setRes} = require("../custom");
 
 
-router.get("/user/:npage",async (req,res)=>{
-    const npage = req.params.npage; 
+router.get("/user",async (req,res)=>{
+   
     const filter = req.query; 
-    let data = await userRepository.findAll(npage,filter)
+    let data = await userRepository.findAll(filter)
     
     setRes(res,data);
    

@@ -7,19 +7,21 @@ const lpage = process.env.page;
 const orderRepository = {
     // Find all users\
    
-    async findAll(npage,filter) {
+    async findAll(filter) {
 
       try {
             const query = {};
+            const page = filter.page ?? 1;
+            const limit = filter.limit ?? lpage;
             if (filter.text) { // Example field for "like" search
               query.text = { $regex: new RegExp(filter.name, 'i') }; // 'i' for case-insensitive
             }
 
             const count = await Order.countDocuments(query);
-
+            
             const values = await Order.find(query).populate("user")
-            .skip((npage-1) * lpage) // Skip the items of previous pages
-            .limit(lpage)
+            .skip((page-1) * limit) // Skip the items of previous pages
+            .limit(limit)
             .sort({
               orderId: 'desc'})
 
@@ -35,7 +37,7 @@ const orderRepository = {
 
     async findByUser(npage,lineId,filter) {
 
-
+     
 
     
       try{
@@ -43,6 +45,9 @@ const orderRepository = {
           let count = 0;
           let values = [];
           if (user){
+
+            const page = filter.page ?? 1;
+            const limit = filter.limit ?? lpage;
           
            
             if (filter.text) { // Example field for "like" search
@@ -57,8 +62,8 @@ const orderRepository = {
 
             count = await Order.countDocuments(query);
             values =  await Order.find(query).populate("user")
-            .skip((npage - 1) * lpage) // Skip the items of previous pages
-            .limit(lpage)
+            .skip((page-1) * limit) // Skip the items of previous pages
+            .limit(limit)
             .sort({
               orderId: 'desc'})
           } 

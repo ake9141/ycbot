@@ -4,17 +4,21 @@ const lpage = process.env.page;
 
 const userRepository = {
     // Find all users
-    async findAll(npage,filter) {
-      try { 
+    async findAll(filter) {
+      try {
         const query = {};
+        const page = filter.page ?? 1;
+        const limit = filter.limit ?? lpage;
+       
+       
         if (filter.name) { // Example field for "like" search
           query.name = { $regex: new RegExp(filter.name, 'i') }; // 'i' for case-insensitive
-         }
+        }
         const count = await User.countDocuments(query);
 
         const items =  await User.find(query)  
-        .skip((npage-1) * lpage) // Skip the items of previous pages
-        .limit(lpage)
+        .skip((page-1) * limit) // Skip the items of previous pages
+        .limit(limit)
       
        
         return {success:true,data:{count,items}};
