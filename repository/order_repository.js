@@ -68,11 +68,11 @@ const orderRepository = {
               orderId: 'desc'})
           } 
 
-          return {success:true,data:{count,values}}
+          return  {success:true,data:values,count:count}
 
         } catch (err){
             
-          return {success:false,error:err.code};
+          return {success:false,error:err};
         }
 
     },

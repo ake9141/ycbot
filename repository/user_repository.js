@@ -21,10 +21,10 @@ const userRepository = {
         .limit(limit)
       
        
-        return {success:true,data:{count,items}};
+        return  {success:true,data:values,count:count}
       } catch (err){
               
-        return {success:false,data:err};
+        return  {success:false,error:err};
       }
     },
   
@@ -40,7 +40,7 @@ const userRepository = {
           }
       } catch (err){
             
-        return {success:false,data:err.code};
+        return  {success:false,error:err};
       }
     },
   
@@ -54,7 +54,7 @@ const userRepository = {
 
       } catch (err){
         
-        return {success:false,data:err.code}
+        return  {success:false,error:err};
       }
     },
   
@@ -73,7 +73,7 @@ const userRepository = {
 
       } catch (err){
         
-        return {success:false,data:err}
+        return  {success:false,error:err};
       }
     },
   
