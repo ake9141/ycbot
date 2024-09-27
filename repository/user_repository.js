@@ -16,7 +16,7 @@ const userRepository = {
         }
         const count = await User.countDocuments(query);
 
-        const items =  await User.find(query)  
+        const values =  await User.find(query)  
         .skip((page-1) * limit) // Skip the items of previous pages
         .limit(limit)
       
