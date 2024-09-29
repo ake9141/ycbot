@@ -14,7 +14,7 @@ const orderRepository = {
             const page = filter.page ?? 1;
             const limit = filter.limit ?? lpage;
             if (filter.text) { // Example field for "like" search
-              query.text = { $regex: new RegExp(filter.name, 'i') }; // 'i' for case-insensitive
+              query.text = { $regex: new RegExp(filter.text, 'i') }; // 'i' for case-insensitive
             }
 
             const count = await Order.countDocuments(query);
