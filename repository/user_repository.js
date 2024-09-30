@@ -33,7 +33,7 @@ const userRepository = {
       try {
        
         const value = await User.findOne({ lineId: lineId });
-        if (!item) {
+        if (!value) {
           return {success:true,data:null};
         } else {
              return {success:true,data:value};
