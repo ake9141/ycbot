@@ -32,11 +32,11 @@ const userRepository = {
     async findByLineId(lineId) {
       try {
        
-        const item = await User.findOne({ lineId: lineId });
+        const value = await User.findOne({ lineId: lineId });
         if (!item) {
           return {success:true,data:null};
         } else {
-             return {success:true,data:user};
+             return {success:true,data:value};
           }
       } catch (err){
             
