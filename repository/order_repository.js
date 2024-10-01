@@ -100,7 +100,7 @@ const orderRepository = {
     },
   
     // Update a user
-    async update(id, parm) {
+    async update(id, updatedData) {
       try{
        
         
@@ -114,7 +114,7 @@ const orderRepository = {
         return {success:true,data:order}
 
       } catch (err){
-        
+        console.log(err)
         return {success:false,error:err}
       }
     },
