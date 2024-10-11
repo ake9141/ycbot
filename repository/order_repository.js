@@ -35,7 +35,7 @@ const orderRepository = {
           }
     },
 
-    async findByUser(npage,lineId,filter) {
+    async findByUser(lineId,filter) {
 
      
 
@@ -54,7 +54,7 @@ const orderRepository = {
               filter.text = { $regex: new RegExp(filter.text, 'i') }; // 'i' for case-insensitive
             }
 
-            query = {
+            const query = {
               ...filter, // Spread existing filter parameters
               ...(user ? { user: user._id } : {}) // Conditionally add user filter
              };

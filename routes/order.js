@@ -17,7 +17,8 @@ router.get("/order",async (req,res)=>{
 
 router.get("/order/:id",async (req,res)=>{
     const id = req.params.id;
-    let data = await orderRepository.findByUser(id);
+    const filter = req.query; 
+    let data = await orderRepository.findByUser(id,filter);
     setRes(res,data);
 })
 
