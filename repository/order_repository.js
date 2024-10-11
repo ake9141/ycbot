@@ -38,25 +38,23 @@ const orderRepository = {
     async findByUser(userId,filter) {
 
      
-
+      
     
       try{
          
-
-            const page = filter.page ?? 1;
-            const limit = filter.limit ?? lpage;
-          
-           
-            if (filter.text) { // Example field for "like" search
-              filter.text = { $regex: new RegExp(filter.text, 'i') }; // 'i' for case-insensitive
-            }
-
-            const query = {
-              ...filter, // Spread existing filter parameters
-              ...(user ? { user: userId } : {}) // Conditionally add user filter
-             };
+        const query = {};
+        const page = filter.page ?? 1;
+        const limit = filter.limit ?? lpage;
+        if (filter.text) { // Example field for "like" search
+          query.text = { $regex: new RegExp(filter.text, 'i') }; // 'i' for case-insensitive
+        }
+         console.log(query)
+        if(userId) {
+         query.user = userId;
+        }
       
-
+            
+           
             count = await Order.countDocuments(query);
             values =  await Order.find(query).populate("user")
             .skip((page-1) * limit) // Skip the items of previous pages
