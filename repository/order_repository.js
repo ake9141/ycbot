@@ -35,16 +35,13 @@ const orderRepository = {
           }
     },
 
-    async findByUser(lineId,filter) {
+    async findByUser(userId,filter) {
 
      
 
     
       try{
-          const user = await User.findOne({ lineId: lineId });
-          let count = 0;
-          let values = [];
-          if (user){
+         
 
             const page = filter.page ?? 1;
             const limit = filter.limit ?? lpage;
@@ -56,7 +53,7 @@ const orderRepository = {
 
             const query = {
               ...filter, // Spread existing filter parameters
-              ...(user ? { user: user._id } : {}) // Conditionally add user filter
+              ...(user ? { user: userId } : {}) // Conditionally add user filter
              };
       
 
@@ -66,7 +63,7 @@ const orderRepository = {
             .limit(limit)
             .sort({
               orderId: 'desc'})
-          } 
+          
 
           return  {success:true,data:values,count:count}
 
