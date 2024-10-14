@@ -31,13 +31,13 @@ async function lineHandleEvents(event) {
         const text = event.message.text;
         const twoChar = text.trimEnd().slice(-2);
 
-         console.log(event.source)
+         console.log(event.source.userId)
           
 
             if (uret.success == false) {
                 
                     if(twoChar == 'ทบ'){
-                        lineRegister(event,client)
+                        lineRegister(lineId,event,client)
                    
                     } else {
                         return client.replyMessage(event.replyToken, [
