@@ -65,7 +65,7 @@ async function lineHandleEvents(event) {
 
                 } else {
                     console.log('pass')
-                    lineMessage(user._id,event,client)
+                    lineMessage(user,event,client)
                 }
             } 
     }
