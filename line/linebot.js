@@ -34,7 +34,7 @@ async function lineHandleEvents(event) {
          console.log(uret)
           
 
-            if (uret.success && user.data == null) {
+            if (uret.success == false) {
                 
                     if(twoChar == 'ทบ'){
                         lineRegister(event,client)
@@ -67,16 +67,7 @@ async function lineHandleEvents(event) {
                     console.log('pass')
                     lineMessage(user._id,event,client)
                 }
-            } else {
-
-                return client.replyMessage(event.replyToken, [
-                    {
-                        "type": "text",
-                        "text": `error ติดต่อ addmin`,
-                    }]);
-                
-            }
-        
+            } 
     }
 
     

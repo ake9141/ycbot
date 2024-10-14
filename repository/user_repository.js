@@ -34,7 +34,7 @@ const userRepository = {
        
         const value = await User.findOne({ lineId: lineId });
         if (!value) {
-          return {success:true,data:null};
+          return {success:false,data:null};
         } else {
              return {success:true,data:value};
           }
