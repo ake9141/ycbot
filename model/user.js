@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const schema = new Schema({
     lineId:String,
     name:String,
-    isAdmin:Boolean,
+    role:String,
     isConfirm:Boolean,
     isCancel:Boolean
     
