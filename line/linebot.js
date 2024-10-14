@@ -31,7 +31,7 @@ async function lineHandleEvents(event) {
         const text = event.message.text;
         const twoChar = text.trimEnd().slice(-2);
 
-         console.log(uret)
+         console.log(event.source)
           
 
             if (uret.success == false) {
