@@ -34,7 +34,7 @@ async function lineHandleEvents(event) {
         
           
 
-            if (!uret.success) {
+            if (uret.success == false) {
 
                 return client.replyMessage(event.replyToken, [
                     {
