@@ -31,7 +31,7 @@ async function lineHandleEvents(event) {
         const text = event.message.text;
         const twoChar = text.trimEnd().slice(-2);
 
-        console.log(uret);
+        
           
 
             if (!uret.success) {
@@ -47,7 +47,7 @@ async function lineHandleEvents(event) {
 
                 const user = uret.data;
                
-                if (!user.isConfirm){
+                if (!user.isConfirm ?? false){
 
                     return client.replyMessage(event.replyToken, [
                         {

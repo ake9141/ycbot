@@ -56,4 +56,39 @@ async function lineMessage(userId,event,client) {
 }
 
 
-module.exports = { lineMessage };
+
+
+async function lineRegister(userId,event,client) {
+
+    const text = event.message.text;
+    const twoChar = text.trimEnd().slice(-2);
+
+    if (twoChar == 'ทบ') {
+
+            
+
+        const uname  = getName(text);
+        if (uname) {
+
+                const  ret = await   UserRep.insert({lineId:lineId,name:uname,isConfirm:false,isCancel:false,isAdmin:false})
+
+                return client.replyMessage(event.replyToken, [
+                        {
+                            "type": "text",
+                            "text": `คุณ ${uname} ลงทะเบียนเรียบร้อย`,
+                }]);
+
+        } else {
+            return reply(client,event,"กรุณาลงทะเบียน xxxxx ทบ");
+
+        }
+
+    } 
+    
+      
+    
+}
+
+
+
+module.exports = { lineMessage,lineRegister };
