@@ -34,8 +34,8 @@ async function lineHandleEvents(event) {
          console.log(uret)
           
 
-            if (!uret.success) {
-                if(!uret.data) {
+            if (uret.success && !user.data) {
+                
                     if(twoChar == 'ทบ'){
                         lineRegister(event,client)
                    
@@ -47,7 +47,7 @@ async function lineHandleEvents(event) {
                             }]);
 
                     }
-                }
+              
                     
         
             }  else {
