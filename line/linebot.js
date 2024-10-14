@@ -31,43 +31,56 @@ async function lineHandleEvents(event) {
         const text = event.message.text;
         const twoChar = text.trimEnd().slice(-2);
 
-       
-          
+           
+        if (uret.success == false) {
+            return client.replyMessage(event.replyToken, [
+                {
+                    "type": "text",
+                    "text": `error ติดต่อ admin`,
+                }]);
 
-            if (uret.success == false) {
+        } else {
+
+
+
+            if (uret.data === null) {
                 
-                    if(twoChar == 'ทบ'){
-                        lineRegister(lineId,event,client)
-                   
-                    } else {
-                        return client.replyMessage(event.replyToken, [
-                            {
-                                "type": "text",
-                                "text": `กรุณาลงทะเบียนก่อน`,
-                            }]);
-
-                    }
-              
-                    
-        
-            }  else if  (uret.success) {
-                
-
-                const user = uret.data;
+                if(twoChar == 'ทบ'){
+                    lineRegister(lineId,event,client)
                
-                if (!user.isConfirm){
-
+                } else {
                     return client.replyMessage(event.replyToken, [
                         {
                             "type": "text",
-                            "text": `คุณ ${user.name} รอการยืนยันจาก admin`,
+                            "text": `กรุณาลงทะเบียนก่อน`,
                         }]);
 
-                } else {
-                    console.log('pass')
-                    lineMessage(user,event,client)
                 }
+          
+                
+    
+            }  else  {
+                    
+
+                    const user = uret.data;
+                
+                    if (!user.isConfirm){
+
+                        return client.replyMessage(event.replyToken, [
+                            {
+                                "type": "text",
+                                "text": `คุณ ${user.name} รอการยืนยันจาก admin`,
+                            }]);
+
+                    } else {
+                        console.log('pass')
+                        lineMessage(user,event,client)
+                    }
             } 
+
+        }
+
+
     }
 
     
