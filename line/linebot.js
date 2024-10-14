@@ -23,7 +23,7 @@ async function lineHandleEvents(event) {
     const uret = await UserRep.findByLineId(lineId);
 
    
-
+   
 
 
     if (event.type == 'message') {
@@ -31,7 +31,7 @@ async function lineHandleEvents(event) {
         const text = event.message.text;
         const twoChar = text.trimEnd().slice(-2);
 
-        
+         console.log(uret)
           
 
             if (uret.success == false) {
@@ -41,6 +41,7 @@ async function lineHandleEvents(event) {
                         "type": "text",
                         "text": `กรุณาลงทะเบียนก่อน`,
                     }]);
+                    
         
             }  else {
                 
