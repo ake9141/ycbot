@@ -58,7 +58,7 @@ async function lineMessage(userId,event,client) {
 
 
 
-async function lineRegister(userId,event,client) {
+async function lineRegister(event,client) {
 
     const text = event.message.text;
     const twoChar = text.trimEnd().slice(-2);

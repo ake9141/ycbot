@@ -1,6 +1,6 @@
 require('dotenv').config();
 const line = require('@line/bot-sdk');
-const {lineMessage } = require('./line_message')
+const {lineMessage, lineRegister } = require('./line_message')
 const UserRep  = require("../repository/user_repository");
 
 
@@ -34,13 +34,20 @@ async function lineHandleEvents(event) {
          console.log(uret)
           
 
-            if (uret.success == false) {
+            if (!uret.success) {
+                if(!uret.data) {
+                    if(twoChar == 'ทบ'){
+                        lineRegister(event,client)
+                   
+                    } else {
+                        return client.replyMessage(event.replyToken, [
+                            {
+                                "type": "text",
+                                "text": `กรุณาลงทะเบียนก่อน`,
+                            }]);
 
-                return client.replyMessage(event.replyToken, [
-                    {
-                        "type": "text",
-                        "text": `กรุณาลงทะเบียนก่อน`,
-                    }]);
+                    }
+                }
                     
         
             }  else {
