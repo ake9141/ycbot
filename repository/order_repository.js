@@ -10,12 +10,13 @@ const orderRepository = {
     async findAll(filter) {
 
       try {
-            const query = {};
+            let query = {};
             const page = filter.page ?? 1;
             const limit = filter.limit ?? lpage;
             if (filter.text) { // Example field for "like" search
               query.text = { $regex: new RegExp(filter.text, 'i') }; // 'i' for case-insensitive
             }
+         
 
             if (filter.name) { 
               const uquery = {};
@@ -23,10 +24,19 @@ const orderRepository = {
               const user = await User.findOne(uquery);
               console.log(user)
               if (user) {
-                query.user = {_id:user._id}
+               
+
+                query =  { $or: [
+                  query,
+                 {user:{_id:user._id}},
+              ] }
               }
+
+             
               
             }
+
+            console.log(query)
 
             const count = await Order.countDocuments(query);
             
