@@ -10,6 +10,7 @@ async function lineMessage(user,event,client) {
     const twoChar = text.trimEnd().slice(-2);
     const userId = user._id;
     const userName = user.name;
+    const role = user.role;
 
     if (twoChar == 'ปล') {
         const  ret = await OrderRep.insert({text:text,user:userId,orderType:'edit'});
@@ -28,7 +29,7 @@ async function lineMessage(user,event,client) {
     
 
   
-    }   else if (twoChar == 'ดู'){
+    }   else if ((twoChar == 'ดู') &&  (user.role === 'admin' || user.role === 'super')) {
         
           return replyflex(client,event,`${userName} ดูรายการorder`,'https://liff.line.me/2006371674-yzKrPkEV');
          

@@ -73,8 +73,15 @@ async function lineHandleEvents(event) {
                             }]);
 
                     } else {
-                        console.log('pass')
-                        lineMessage(user,event,client)
+                        if (user.isCancel){
+                            return client.replyMessage(event.replyToken, [
+                                {
+                                    "type": "text",
+                                    "text": `คุณ ${user.name} ไม่มีในระบบ`,
+                                }]);
+                        } else { 
+                          lineMessage(user,event,client)
+                        }
                     }
             } 
 
