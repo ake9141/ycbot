@@ -17,6 +17,17 @@ const orderRepository = {
               query.text = { $regex: new RegExp(filter.text, 'i') }; // 'i' for case-insensitive
             }
 
+            if (filter.name) { 
+              const uquery = {};
+              uquery.name =    { $regex: new RegExp(filter.name, 'i') };
+              const user = await User.findOne(uquery);
+              console.log(user)
+              if (user) {
+                query.user = {_id:user._id}
+              }
+              
+            }
+
             const count = await Order.countDocuments(query);
             
             const values = await Order.find(query).populate("user")
